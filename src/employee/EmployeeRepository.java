@@ -6,32 +6,46 @@ import java.util.*;
 public class EmployeeRepository {
 	private final List<Employee> employees = new ArrayList<>();
 	
+	//リストに社員を追加するメソッド
 	public void save(Employee employee) {
-		//リストに社員を追加する
 		employees.add(employee);
 	}
 
+	//IDが一致する社員情報を取得
 	public Optional<Employee> findById(String employeeId){
 		//IDで社員を1件取得する
 		for(Employee emp:employees) {
 			if(emp.getEmployeeId().equals(employeeId)) {
-				return emp;
+				return Optional.of(emp);
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 	
-	/*
-	private List<Employee> findAll(){
-		//全社員を取得する（退職者を含む）
+	//全社員情報を取得する（退職者を含む）
+	public List<Employee> findAll(){
+		return employees;
 	}
 	
-	private boolean existsById(String employeeId) {
-		//IDが存在するか確認する
+	//IDが存在するか確認する
+	public boolean existsById(String employeeId) {
+		for(Employee emp:employees) {
+			if(emp.getEmployeeId().equals(employeeId)) {
+				return true;
+			} 
+		}
+		return false;
 	}
 	
-	private List<Employee> findByDepartment(String department){
-		//部署名で社員一覧を取得する
+	//部署名で社員一覧を取得する
+	public List<Employee> findByDepartment(String department){
+		List<Employee> departmentList = new ArrayList<>();
+		for(Employee emp:employees) {
+			if(emp.getDepartment().equals(department)) {
+				departmentList.add(emp);
+			}
+		}
+		return departmentList;
 	}
-	*/
+	
 }
