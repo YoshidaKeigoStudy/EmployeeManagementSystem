@@ -1,4 +1,4 @@
-package employee;
+package employee.model;
 
 /** 社員情報を保持するデータクラス **/
 public class Employee {
