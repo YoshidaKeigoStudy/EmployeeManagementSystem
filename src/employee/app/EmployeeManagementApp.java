@@ -22,40 +22,34 @@ public class EmployeeManagementApp {
 
 			/** 機能分岐 **/
 			switch (functionNum) {
-			case 1: {
+			case 1:
 				registEmployee();
 				break;
-			}
 
-			case 2: {
+			case 2:
 				showEmployee();
 				break;
-			}
 
-			case 3: {
+			case 3:
 				searchEmployee();
 				break;
-			}
 
-			case 4: {
+			case 4:
 				searchDepartmentEmployee();
 				break;
-			}
 
-			case 5: {
+			case 5:
 				updateEmployeeInfo();
 				break;
-			}
 
-			case 6: {
+			case 6:
 				retireEmployee();
 				break;
-			}
 
-			case 0: {
+			case 0:
 				finish();
 				return;
-			}
+
 			default: {
 				System.out.println("入力した番号は無効です。");
 			}
@@ -95,20 +89,18 @@ public class EmployeeManagementApp {
 		String employeeDepartment = scanner.next();
 		System.out.println();
 
-		Employee emp = new Employee(employeeId, employeeName, employeeAge, employeeDepartment);
-
 		/** 登録メソッドの呼び出し **/
 		try {
+			Employee emp = new Employee(employeeId, employeeName, employeeAge, employeeDepartment);
 			service.register(emp);
 		} catch (IllegalArgumentException e) {
-			System.out.println("そのIDの社員情報は既に登録済みのため登録できません");
+			System.out.println(e.getMessage());
 		}
 	}
 
 	// case2 社員一覧表示
 	private static void showEmployee() {
-		List<Employee> allEmp = service.findActiveEmployees();
-		printEmployees(allEmp);
+		printEmployees(service.findActiveEmployees());
 	}
 
 	// case3 社員検索
@@ -118,10 +110,9 @@ public class EmployeeManagementApp {
 		String employeeId = scanner.next();
 		try {
 			Employee emp = service.search(employeeId);
-			List<Employee> employees = List.of(emp);
-			printEmployees(employees);
+			printEmployees(List.of(emp));
 		} catch (IllegalArgumentException e) {
-			System.out.println("そのIDの社員は存在しません。別のIDで検索してください。");
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -132,10 +123,9 @@ public class EmployeeManagementApp {
 		System.out.print("部署：");
 		String employeeDepartment = scanner.next();
 		try {
-			List<Employee> depEmp = service.findByDepartment(employeeDepartment);
-			printEmployees(depEmp);
+			printEmployees(service.findByDepartment(employeeDepartment));
 		} catch (IllegalArgumentException e) {
-			System.out.println("その部署名で登録されている社員は存在しません。");
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -149,7 +139,7 @@ public class EmployeeManagementApp {
 			service.search(employeeId);
 			System.out.println("==IDが" + employeeId + "の社員情報を更新します。入力してください。==");
 		} catch (IllegalArgumentException e) {
-			System.out.println("そのIDの社員は存在しません。");
+			System.out.println(e.getMessage());
 			return;
 		}
 
