@@ -19,13 +19,13 @@ public class Employee {
 			this.age = age;
 		}
 		// 氏名が入力されているかどうか
-		if (name.isBlank()) {
+		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("氏名が入力されていないため登録できません。");
 		} else {
 			this.name = name;
 		}
 		// 部署が入力されているかどうか
-		if (department.isBlank()) {
+		if (department == null || department.isBlank()) {
 			throw new IllegalArgumentException("部署が入力されていないため登録できません。");
 		} else {
 			this.department = department;
@@ -79,11 +79,11 @@ public class Employee {
 			throw new IllegalArgumentException("年齢が0未満です。登録できません。");
 		}
 		// 氏名が入力されているかどうか
-		if (name.isBlank()) {
+		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("氏名が入力されていないため登録できません。");
 		}
 		// 部署が入力されているかどうかのバリデーションチェック
-		if (department.isBlank()) {
+		if (department == null || department.isBlank()) {
 			throw new IllegalArgumentException("部署が入力されていないため登録できません。");
 		}
 		this.age = age;
