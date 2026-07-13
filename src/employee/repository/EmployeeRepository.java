@@ -18,12 +18,7 @@ public class EmployeeRepository {
 	// IDが一致する社員情報を取得
 	public Optional<Employee> findById(String employeeId) {
 		// IDで社員を1件取得する
-		for (Employee emp : employees) {
-			if (emp.getEmployeeId().equals(employeeId)) {
-				return Optional.of(emp);
-			}
-		}
-		return Optional.empty();
+		return employees.stream().filter(emp -> emp.getEmployeeId().equals(employeeId)).findFirst();
 	}
 
 	// 全社員情報を取得する（退職者を含む）
@@ -39,34 +34,18 @@ public class EmployeeRepository {
 
 	// IDが存在するか確認する
 	public boolean existsById(String employeeId) {
-		for (Employee emp : employees) {
-			if (emp.getEmployeeId().equals(employeeId)) {
-				return true;
-			}
-		}
-		return false;
+		return employees.stream().anyMatch(emp -> emp.getEmployeeId().equals(employeeId));
 	}
 
 	// 部署名で社員一覧を取得する（退職者を含む）
 	public List<Employee> findByDepartment(String department) {
-		List<Employee> departmentList = new ArrayList<>();
-		for (Employee emp : employees) {
-			if (emp.getDepartment().equals(department)) {
-				departmentList.add(emp);
-			}
-		}
-		return departmentList;
+		return employees.stream().filter(emp -> emp.getDepartment().equals(department)).toList();
 	}
 
 	// 部署名で社員一覧を取得する（退職者を除く）
 	public List<Employee> findByDepartmentActive(String department) {
-		List<Employee> activeDepartmentList = new ArrayList<>();
-		for (Employee emp : employees) {
-			if (emp.getDepartment().equals(department)) {
-				activeDepartmentList.add(emp);
-			}
-		}
-		return activeDepartmentList.stream().filter(emp -> !emp.isRetired()).toList();
+		return employees.stream().filter(emp -> emp.getDepartment().equals(department)).filter(emp -> !emp.isRetired())
+				.toList();
 	}
 
 }

@@ -11,9 +11,26 @@ public class Employee {
 	// コンストラクタ
 	public Employee(String employeeId, String name, int age, String department) {
 		this.employeeId = employeeId;
-		this.name = name;
-		this.age = age;
-		this.department = department;
+		// バリデーションチェック
+		// 年齢が0以上かどうか
+		if (age < 0) {
+			throw new IllegalArgumentException("年齢が0未満です。登録できません。");
+		} else {
+			this.age = age;
+		}
+		// 氏名が入力されているかどうか
+		if (name == null || name.isBlank()) {
+			throw new IllegalArgumentException("氏名が入力されていないため登録できません。");
+		} else {
+			this.name = name;
+		}
+		// 部署が入力されているかどうか
+		if (department == null || department.isBlank()) {
+			throw new IllegalArgumentException("部署が入力されていないため登録できません。");
+		} else {
+			this.department = department;
+		}
+
 	}
 
 	// getter
@@ -54,10 +71,34 @@ public class Employee {
 		this.retired = retired;
 	}
 
+	// プロパティの更新
+	public void changeProperty(int age, String name, String department) {
+		// バリデーションチェック
+		// 年齢が0以上かどうか
+		if (age < 0) {
+			throw new IllegalArgumentException("年齢が0未満です。登録できません。");
+		}
+		// 氏名が入力されているかどうか
+		if (name == null || name.isBlank()) {
+			throw new IllegalArgumentException("氏名が入力されていないため登録できません。");
+		}
+		// 部署が入力されているかどうかのバリデーションチェック
+		if (department == null || department.isBlank()) {
+			throw new IllegalArgumentException("部署が入力されていないため登録できません。");
+		}
+		this.age = age;
+		this.name = name;
+		this.department = department;
+	}
+
+	// 退職フラグをオンにする
+	public void retire() {
+		this.retired = true;
+	}
+
 	@Override
 	public String toString() {
 		return "employeeId='" + employeeId + '\'' + ", name='" + name + '\'' + ", age=" + age + ", department='"
 				+ department + '\'' + ", retired=" + retired;
 	}
-
 }
