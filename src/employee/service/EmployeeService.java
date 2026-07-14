@@ -18,11 +18,9 @@ public class EmployeeService {
 		// IDの重複チェック
 		if (repository.existsById(employee.getEmployeeId())) {
 			throw new IllegalArgumentException("そのIDの社員情報は既に登録済みのため登録できません");
-		} else {
-			repository.save(employee);
-			System.out.println("登録が完了しました。");
 		}
-
+		repository.save(employee);
+		System.out.println("登録が完了しました。");
 	}
 
 	/** 退職者を除く一覧取得処理 **/

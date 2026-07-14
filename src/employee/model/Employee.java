@@ -15,22 +15,18 @@ public class Employee {
 		// 年齢が0以上かどうか
 		if (age < 0) {
 			throw new IllegalArgumentException("年齢が0未満です。登録できません。");
-		} else {
-			this.age = age;
 		}
 		// 氏名が入力されているかどうか
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("氏名が入力されていないため登録できません。");
-		} else {
-			this.name = name;
 		}
 		// 部署が入力されているかどうか
 		if (department == null || department.isBlank()) {
 			throw new IllegalArgumentException("部署が入力されていないため登録できません。");
-		} else {
-			this.department = department;
 		}
-
+		this.age = age;
+		this.name = name;
+		this.department = department;
 	}
 
 	// getter

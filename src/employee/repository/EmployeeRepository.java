@@ -44,8 +44,7 @@ public class EmployeeRepository {
 
 	// 部署名で社員一覧を取得する（退職者を除く）
 	public List<Employee> findByDepartmentActive(String department) {
-		return employees.stream().filter(emp -> emp.getDepartment().equals(department)).filter(emp -> !emp.isRetired())
-				.toList();
+		return findByDepartment(department).stream().filter(emp -> !emp.isRetired()).toList();
 	}
 
 }
